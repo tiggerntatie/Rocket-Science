@@ -1,3 +1,3 @@
 from ggrocket import Rocket, Planet
 
-Planet(Rocket, altitude=10)
+Planet(Rocket, altitude=50)
