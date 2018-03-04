@@ -12,6 +12,6 @@ Ve=sqrt(2*Me*G/Re)
 print("Predicted escape velocity is ", Ve, " m/s")
 
 # Add a slider for conrolling the timezoom
-tz = Slider((10,400), 0, 5, 0)
+tz = Slider((10,400), 0, 5, 0, positioning="physical")
 
 Planet(Rocket, heading=radians(90), directiond=90, velocity=Ve, timezoom=tz)
