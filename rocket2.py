@@ -1,3 +1,4 @@
 from ggrocket import Rocket, Planet
+from math import radians
 
-Planet(Rocket, altitude=400000, viewscale=0.00005, velocity=1000, timezoom=1)
+Planet(Rocket, heading=radians(90), directiond=90, velocity=10)
