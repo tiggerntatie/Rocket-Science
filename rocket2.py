@@ -8,5 +8,6 @@ G = 6.674E-11 # Gravitational constant
 
 # Calculate the escape velocity from Earth's surface radius
 Ve=sqrt(2*Me*G/Re)
+print("Predicted escape velocity is ", Ve, " m/s")
 
 Planet(Rocket, heading=radians(90), directiond=90, velocity=Ve)
