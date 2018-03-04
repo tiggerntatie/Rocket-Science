@@ -14,4 +14,4 @@ print("Predicted escape velocity is ", Ve, " m/s")
 # Add a slider for conrolling the timezoom
 tz = Slider((10,400), 0, 5, 0)
 
-Planet(Rocket, heading=radians(90), directiond=90, velocity=Ve)
+Planet(Rocket, heading=radians(90), directiond=90, velocity=Ve, timezoom=tz)
