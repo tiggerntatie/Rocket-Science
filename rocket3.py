@@ -1,20 +1,40 @@
 from ggrocket import Rocket, Planet
 from math import radians, sqrt
-from ggmath import Slider
+from ggmath import InputButton, Timer
 
-earth = Planet()
+earth = Planet(planetmass=0)  # no gravity to simplify things
 
-# Constants relating to Earth and physics
-Re = 6.371E6  # Earth radius: 6371000 meters in scientific notation
-Me = 5.972E24 # Earth mass in kg (5.972 x 10^24)
-G = 6.674E-11 # Gravitational constant
+RocketStarted = False
+timer = Timer()
 
-# Calculate the escape velocity from Earth's surface radius
-Ve=sqrt(2*Me*G/Re)
-print("Predicted escape velocity is ", Ve, " m/s")
+# Falcon F9R specifications
+me = 25600      # Empty mass
+mp =  395700   # Propellent mass
+F1D = 716000    # Single engine thrust
+N1D = 9         # Number of rocket engines
+Ftotal = F1D * N1D
+tburn = 180
 
-# Add a slider for conrolling the timezoom
-tz = Slider((10,400), 0, 5, 0, positioning="physical")
+# Create a function for determining the rocket thrust
+def GetThrust():
+    if RocketStarted:
+        return Ftotal
+    else:
+        return 0
 
-rocket = Rocket(earth, heading=radians(90), directiond=90, velocity=Ve, timezoom=tz)
+# Function for starting the rocket thrust
+def StartRocket():
+    global RocketStarted
+    RocketStarted = True
+    timer.callAfter(tburn, StopRocket)
+    
+# Function for stopping the rocket thrust (called by timer)
+def StopRocket(timer):
+    global RocketStarted
+    RocketStarted = False
+    
+# Create a button for starting the simulation
+start = InputButton((10,400), "START", StartRocket, positioning="physical")
+
+rocket = Rocket(earth, heading=radians(90), thrust=)
 earth.run(rocket)
