@@ -15,6 +15,10 @@ N1D = 9         # Number of rocket engines
 Ftotal = F1D * N1D
 tburn = 180
 
+# Predict the final velocity
+vmax = N1D*F1D*tburn/(me+mp)
+print("Predicted final velocity, vmax: ", vmax, " m/s")
+
 # Create a function for determining the rocket thrust
 def GetThrust():
     if RocketStarted:
