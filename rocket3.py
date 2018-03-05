@@ -13,7 +13,7 @@ mp =  395700   # Propellent mass
 F1D = 716000    # Single engine thrust
 N1D = 9         # Number of rocket engines
 Ftotal = F1D * N1D
-tburn = 180
+tburn = 10
 
 # Predict the final velocity
 vmax = N1D*F1D*tburn/(me+mp)
