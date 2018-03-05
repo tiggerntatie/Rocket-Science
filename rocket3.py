@@ -13,7 +13,7 @@ mp =  395700   # Propellent mass
 F1D = 716000    # Single engine thrust
 N1D = 9         # Number of rocket engines
 Ftotal = F1D * N1D
-tburn = 10
+tburn = 180
 
 # Predict the final velocity
 vmax = N1D*F1D*tburn/(me+mp)
@@ -29,8 +29,9 @@ def GetThrust():
 # Function for starting the rocket thrust
 def StartRocket():
     global RocketStarted
-    RocketStarted = True
-    timer.callAfter(tburn, StopRocket)
+    if not RocketStarted:
+        RocketStarted = True
+        timer.callAfter(tburn, StopRocket)
     
 # Function for stopping the rocket thrust (called by timer)
 def StopRocket(timer):
