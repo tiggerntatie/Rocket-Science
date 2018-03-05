@@ -36,5 +36,5 @@ def StopRocket(timer):
 # Create a button for starting the simulation
 start = InputButton((10,400), "START", StartRocket, positioning="physical")
 
-rocket = Rocket(earth, heading=radians(90), thrust=)
+rocket = Rocket(earth, heading=radians(90), thrust=GetThrust)
 earth.run(rocket)
