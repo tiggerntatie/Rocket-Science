@@ -43,5 +43,5 @@ def StopRocket(timer):
 start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=me+mp)
+rocket = Rocket(earth, thrust=GetThrust, mass=me+mp, heading=radians(90))
 earth.run(rocket)
