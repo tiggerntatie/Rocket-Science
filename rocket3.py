@@ -9,7 +9,7 @@ timer = Timer()
 
 # Falcon F9R specifications
 me = 25600      # Empty mass
-mp =  395700   # Propellent mass
+mp =  395700    # Propellent mass
 F1D = 716000    # Single engine thrust
 N1D = 9         # Number of rocket engines
 Ftotal = F1D * N1D
