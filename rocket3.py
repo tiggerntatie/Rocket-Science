@@ -28,6 +28,7 @@ def GetThrust():
 
 # Function for starting the rocket thrust (called by the START "button")
 def StartRocket():
+    global RocketStarted
     if not RocketStarted:
         RocketStarted = True
         # Start a timer that will STOP the rocket engine
@@ -35,6 +36,7 @@ def StartRocket():
     
 # Function for stopping the rocket thrust (called by timer)
 def StopRocket(timer):
+    global RocketStarted
     if RocketStarted:
         RocketStarted = False
     
