@@ -6,7 +6,7 @@ earth = Planet(planetmass=0)  # no gravity to simplify things
 
 RocketStarted = False
 timer = Timer()
-starttime = 0    # to keep track of when burn started
+starttime = None    # to keep track of when burn started
 burntime = 0        # to keep track of how long the burn has lasted
 
 # Falcon F9R specifications
@@ -52,11 +52,15 @@ def StopRocket(timer):
 # Function for calculating the total rocket mass, based on burn time and total
 # propellent mass.
 def GetMass():
-    # update the burn time: seconds since start
-    burntime = timer.time - starttime
-    # calculate empty mass plus a fraction of the propellent mass based on time
-    return me + mp*(tburn-burntime)/tburn
-    
+    global RocketStarted
+    if RocketStarted:
+        # update the burn time: seconds since start
+        burntime = timer.time - starttime
+        # calculate empty mass plus a fraction of the propellent mass based on time
+        return me + mp*(tburn-burntime)/tburn
+    else:
+        # not started: just return the full pre-launch rocket mass
+        return me + mp
     
 # Create a button for starting the simulation
 # Physical positioning at 10,400 pixels, calls the StartRocket function
