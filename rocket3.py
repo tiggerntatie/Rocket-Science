@@ -52,7 +52,7 @@ def StopRocket(timer):
 # Function for calculating the total rocket mass, based on burn time and total
 # propellent mass.
 def GetMass():
-    # calculate empty mass plus a fraction of the propellent mass
+    # calculate empty mass plus a fraction of the propellent mass based on time
     return me + mp*(tburn-burntime)/tburn
     
     
@@ -61,5 +61,5 @@ def GetMass():
 start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=me+mp, heading=radians(90))
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, heading=radians(90))
 earth.run(rocket)
