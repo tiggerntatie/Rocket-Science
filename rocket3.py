@@ -22,7 +22,7 @@ vmax = Ftotal*tburn/(me+mp)
 print("Predicted final velocity (Newton's 2nd Law), vmax: ", vmax, " m/s")
 
 # Predict the final velocity using Tsiolkovsky's Rocket Equation
-vmaxre = Ftotal*tburn/mp*log(me/(me+mp))
+vmaxre = Ftotal*tburn/mp*log((me+mp)/me)
 print("Predicted final velocity (Rocket Equation), vmax: ", vmaxre, " m/s")
 
 # Create a function for determining the rocket thrust
