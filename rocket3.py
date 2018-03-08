@@ -46,7 +46,7 @@ def GetThrust():
 # Function for starting the rocket thrust (called by the START "button")
 def StartRocket():
     global RocketStarted
-    global starttime
+    global StartTime
     if not RocketStarted:
         RocketStarted = True
         # Note the starting time
