@@ -52,6 +52,8 @@ def StopRocket(timer):
 # Function for calculating the total rocket mass, based on burn time and total
 # propellent mass.
 def GetMass():
+    # update the burn time: seconds since start
+    burntime = timer.time - starttime
     # calculate empty mass plus a fraction of the propellent mass based on time
     return me + mp*(tburn-burntime)/tburn
     
