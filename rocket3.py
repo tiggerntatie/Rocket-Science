@@ -6,7 +6,7 @@ earth = Planet(planetmass=0)  # no gravity to simplify things
 
 RocketStarted = False
 timer = Timer()
-starttime = None    # to keep track of when burn started
+starttime = 0    # to keep track of when burn started
 burntime = 0        # to keep track of how long the burn has lasted
 
 # Falcon F9R specifications
