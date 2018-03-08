@@ -28,6 +28,7 @@ print("Predicted final velocity (Rocket Equation), vmax: ", vmaxre, " m/s")
 # Create a function for determining the rocket thrust
 def GetThrust():
     global BurnTime
+    global RocketStarted
     if RocketStarted:
         # get the burn time: seconds since start
         BurnTime = rocket.shiptime - StartTime
