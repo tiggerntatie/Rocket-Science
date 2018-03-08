@@ -68,5 +68,5 @@ def GetMass():
 start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, timezoom=0.5)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
 earth.run(rocket)
