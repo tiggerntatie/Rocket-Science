@@ -23,7 +23,7 @@ MinThrust = MinThrottle * Fdmax
 MaxThrust = MaxThrottle * Fdmax
 
 
-Lem = class(Rocket):
+class Lem(Rocket):
     def __init__(self, planet, **kwargs):
         kwargs['thrust'] = self.GetThrust
         kwargs['mass'] = self.GetMass
