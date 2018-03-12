@@ -27,9 +27,9 @@ class Lem(Rocket):
     def __init__(self, planet, **kwargs):
         kwargs['thrust'] = self.GetThrust
         kwargs['mass'] = self.GetMass
-        super().__init__(planet, **kwargs)
         self.LastTime = self.shiptime
         self.FuelLeft = mdescfuel
+        super().__init__(planet, **kwargs)
         # Clue for the thrust slider
         self.lab1 = Label((10,345), "Thrust: up/down key", positioning="physical", size=15)
         # Define a thrust slider
