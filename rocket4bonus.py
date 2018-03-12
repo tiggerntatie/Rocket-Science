@@ -23,40 +23,42 @@ MinThrust = MinThrottle * Fdmax
 MaxThrust = MaxThrottle * Fdmax
 
 
+Lem = class(Rocket):
+    def __init__(self, planet, **kwargs):
+        kwargs['thrust'] = self.GetThrust
+        kwargs['mass'] = self.GetMass
+        super().__init__(planet, **kwargs)
+        self.LastTime = self.shiptime
+        self.FuelLeft = mdescfuel
+        # Clue for the thrust slider
+        self.lab1 = Label((10,345), "Thrust: up/down key", positioning="physical", size=15)
+        # Define a thrust slider
+        self.ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
+        
+        
+    # Create a function for determining the rocket thrust
+    def GetThrust(self):
+        elapsedtime = self.shiptime - self.LastTime
+        self.LastTime = self.shiptime
+        thrustpct = self.ThrustSlider()
+        if thrustpct < 0.1:
+            return 0
+        elif self.FuelLeft > 0:
+            self.FuelLeft = self.FuelLeft - mdotmax*thrustpct*elapsedtime
+            return Fdmax*thrustpct
+        return 0
+    
+    # Function for calculating the total rocket mass, based on burn time and total
+    # propellent mass.
+    def GetMass(self):
+        return self.FuelLeft + mdescent - mdescfuel + mascent
+    
+    
+
+
 moon = Planet(planetmass=moonmass, radius=moonradius, color=Color(0x202020,1)) 
 
-FuelLeft = mdescfuel
 
-LastTime = 0
-
-# Clue for the thrust slider
-Label((10,345), "Thrust: up/down key", positioning="physical", size=15)
-# Define a thrust slider
-ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
-
-
-# Create a function for determining the rocket thrust
-def GetThrust():
-    global FuelLeft
-    global LastTime
-    global ThrustSlider
-    global Fdmax
-    global lander
-
-    elapsedtime = lander.shiptime - StartTime
-    LastTime = lander.shiptime
-    thrustpct = ThrustSlider()
-    if thrustpct < 0.1:
-        return 0
-    elif FuelLeft > 0:
-        FuelLeft = FuelLeft - mdotmax*thrustpct*elapsedtime
-        return Fdmax*thrustpct
-    return 0
-
-# Function for calculating the total rocket mass, based on burn time and total
-# propellent mass.
-def GetMass():
-    return FuelLeft + mdescent - mdescfuel + mascent
 
 #Create and "run" the rocket
 lander = Rocket(moon, thrust=GetThrust, mass=GetMass, altitude=alt, velocity=vel)
