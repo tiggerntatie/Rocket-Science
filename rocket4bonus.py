@@ -61,6 +61,6 @@ moon = Planet(planetmass=moonmass, radius=moonradius, color=Color(0x202020,1))
 
 
 #Create and "run" the rocket
-lander = Lem(moon, thrust=GetThrust, mass=GetMass, altitude=alt, velocity=vel)
+lander = Lem(moon, altitude=alt, velocity=vel)
 
 moon.run(lander)
