@@ -34,7 +34,7 @@ class Lem(Rocket):
         # Define a thrust slider
         self.ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
         # Fuel Gauge
-        self.FuelGage = Label((10,390), self.FuelPct, size=15)
+        self.FuelGage = Label((10,390), self.FuelPct, positioning="physical", size=15)
         super().__init__(planet, **kwargs)
         self.LastTime = self.shiptime
         
