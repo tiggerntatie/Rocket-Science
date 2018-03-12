@@ -44,7 +44,8 @@ class Lem(Rocket):
         super().__init__(planet, **kwargs)
         self.LastTime = self.shiptime
         
-    def step(self):
+    def dynamics(self, timer):
+        super().dynamics(timer)
         self.ElapsedTime = self.shiptime - self.LastTime
         self.LastTime = self.shiptime
         self.DeltaAltitude = self.altitude - self.LastAltitude
@@ -52,7 +53,6 @@ class Lem(Rocket):
         self.ThrustPct = self.ThrustSlider()
         if self.ThrustPct >= 0.1 and self.FuelLeft > 0:
             self.FuelLeft = self.FuelLeft - mdotmax*self.ThrustPct*self.ElapsedTime
-        super().step()
 
     # Create a function for determining the rocket thrust
     def GetThrust(self):
@@ -74,7 +74,10 @@ class Lem(Rocket):
 
     # Function for showing the vertical velocity
     def VertVel(self):
-        return "Vertical Velocity: {0:.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
+        if not self.ElapsedTime:
+            return "Vertical Velocity N/A"
+        else:
+            return "Vertical Velocity: {0:.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
 
 moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=Color(0x202020,1)) 
 
