@@ -4,34 +4,62 @@ from ggmath import InputButton, Timer
 
 earth = Planet(planetmass=0)  # no gravity to simplify things
 
-RocketStarted = False
+Stage1Started = False
+Stage2Started = False
+PayloadLaunched = False
 StartTime = None    # to keep track of when burn started
 BurnTime = 0        # keep track of how much time the burn has lasted
 
 # Falcon F9R specifications
-me = 25600          # Empty mass
-mp =  395700        # Propellent mass
-F1D = 716000        # Single engine thrust (Newtons)
-N1D = 9             # Number of rocket engines
-Ftotal = F1D * N1D  # Total thrust (Newtons)
-tburn = 180         # Burn time (seconds)
+# FIRST STAGE
+me1 = 25600          # Empty mass (kg) 
+mp1 =  395700        # Propellent mass (kg)
+Ftotal1 = 6.444E6    # Total thrust (Newtons)
+tburn1 = 180         # Burn time (seconds)
+# SECOND STAGE
+me2 = 3900           # Empty mass (kg)
+mp1 =  92670         # Propellent mass (kg)
+Ftotal1 = 8.01E5     # Total thrust (Newtons)
+tburn1 = 372         # Burn time (seconds)
+# PAYLOAD
+mep = 13150          # Payload mass (kg)
 
-# Predict the final velocity using Tsiolkovsky's Rocket Equation
-vmaxre = Ftotal*tburn/mp*log((me+mp)/me)
-print("Predicted final velocity (Rocket Equation), vmax: ", vmaxre, " m/s")
+
+# Predict the final velocity using Tsiolkovsky's Rocket Equation,
+# In two stages!
+vmax1 = Ftotal1*tburn1/mp1*log((me1+mp1+me2+mp2+mep)/(me1+me2+mp2+mep))
+vmax2 = Ftotal2*tburn2/mp2*log((me2+mp2+mep)/(me2+mep))
+
+print("Predicted final staged rocket velocity (Rocket Equation), vmax: ", vmax1+vmax2, " m/s")
 
 # Create a function for determining the rocket thrust
 def GetThrust():
     global BurnTime
-    global RocketStarted
-    if RocketStarted:
+    global Stage1Started
+    global Stage2Started
+    global PayloadLaunched
+    if Stage1Started:
+        tburn = tburn1
+        Ftotal = Ftotal1
+    elif Stage2Started:
+        tburn = tburn2
+        Ftotal = Ftotal2
+    if Stage1Started or Stage2Started:
         # get the burn time: seconds since start
         BurnTime = rocket.shiptime - StartTime
-        # is it time to stop the rocket?
+        # is it time to stop this stage?
         if BurnTime >= tburn:
-            # stop the rocket and report zero thrust
-            RocketStarted = False
-            return 0
+            if Stage1Started:
+                # stage the rocket
+                Stage1Started = False
+                Stage2Started = True
+                BurnTime = 0
+                return Ftotal2
+            else:
+                # stop the rocket
+                Stage2Started = False
+                PayloadLaunched = True
+                return 0
         else:
             # still burning, report full thrust
             return Ftotal
@@ -40,23 +68,29 @@ def GetThrust():
 
 # Function for starting the rocket thrust (called by the START "button")
 def StartRocket():
-    global RocketStarted
+    global Stage1Started
     global StartTime
-    if not RocketStarted:
-        RocketStarted = True
+    if not (Stage1Started or Stage2Started):
+        Stage1Started = True
         # Note the starting time
         StartTime = rocket.shiptime
         
 # Function for calculating the total rocket mass, based on burn time and total
 # propellent mass.
 def GetMass():
-    global RocketStarted
-    if RocketStarted:
+    global Stage1Started
+    global Stage2Started
+    if Stage1Started:
         # calculate empty mass plus a fraction of the propellent mass based on time
-        return me + mp*(tburn-BurnTime)/tburn
+        return me1 + me2 + mep + mp2 + mp1*(tburn1-BurnTime)/tburn1
+    elif Stage2Started:
+        return me2 + mep + mp2*(tburn2-BurnTime)/tburn2
+    elif PayloadLaunched:
+        # just payload mass now
+        return mep
     else:
-        # not started: just return the full pre-launch rocket mass
-        return me + mp
+        # not even started: just return the full pre-launch rocket mass
+        return me1 + mp1 + me2 + mp2 + mep
 
 # Create a button for starting the simulation
 # Physical positioning at 10,400 pixels, calls the StartRocket function
