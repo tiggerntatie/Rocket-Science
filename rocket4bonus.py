@@ -41,7 +41,8 @@ def GetThrust():
     global ThrustSlider
     elapsedtime = lander.shiptime - LastTime
     LastTime = lander.shiptime
-    thrustpct = ThrustSlider()
+    #thrustpct = ThrustSlider()
+    thrustpct = 0
     if thrustpct < 0.1:
         return 0
     elif FuelLeft > 0:
