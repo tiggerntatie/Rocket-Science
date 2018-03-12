@@ -36,10 +36,10 @@ ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps
 
 # Create a function for determining the rocket thrust
 def GetThrust():
-    return 0
     global FuelLeft
     global lander
     global ThrustSlider
+    global Fdmax
     elapsedtime = lander.shiptime - LastTime
     LastTime = lander.shiptime
     thrustpct = ThrustSlider()
