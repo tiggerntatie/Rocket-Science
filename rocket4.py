@@ -53,7 +53,8 @@ def GetThrust():
                 # stage the rocket
                 Stage1Started = False
                 Stage2Started = True
-                BurnTime = 0
+                # Note the new starting time
+                StartTime = rocket.shiptime
                 return Ftotal2
             else:
                 # stop the rocket
@@ -115,5 +116,5 @@ start = InputButton((10,400), "START", StartRocket, positioning="physical", size
 status = Label((10,420), GetStatus, positioning="physical", size=15)
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, altitude=50)
 earth.run(rocket)
