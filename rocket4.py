@@ -117,5 +117,5 @@ start = InputButton((10,400), "START", StartRocket, positioning="physical", size
 status = Label((10,420), GetStatus, positioning="physical", size=15)
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, altitude=50)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
 earth.run(rocket)
