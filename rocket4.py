@@ -1,6 +1,6 @@
 from ggrocket import Rocket, Planet
 from math import radians, sqrt, log
-from ggmath import InputButton, Timer
+from ggmath import InputButton, Timer, Label
 
 earth = Planet(planetmass=0)  # no gravity to simplify things
 
@@ -80,6 +80,7 @@ def StartRocket():
 def GetMass():
     global Stage1Started
     global Stage2Started
+    global PayloadLaunched
     if Stage1Started:
         # calculate empty mass plus a fraction of the propellent mass based on time
         return me1 + me2 + mep + mp2 + mp1*(tburn1-BurnTime)/tburn1
@@ -92,9 +93,26 @@ def GetMass():
         # not even started: just return the full pre-launch rocket mass
         return me1 + mp1 + me2 + mp2 + mep
 
+# Function for displaying the rocket status
+def GetStatus():
+    global Stage1Started
+    global Stage2Started
+    global PayloadLaunched
+    if Stage1Started:
+        return "STAGE 1 FIRING"
+    elif Stage2Started:
+        return "STAGE 2 FIRING"
+    elif PayloadLaunched:
+        return "PAYLOAD DELIVERED"
+    else:
+        return "WAITING FOR LAUNCH"
+
 # Create a button for starting the simulation
 # Physical positioning at 10,400 pixels, calls the StartRocket function
 start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
+
+# Create a label for showing the current rocket status
+status = Label((10,420), GetStatus, positioning="physical", size=15)
 
 #Create and "run" the rocket
 rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
