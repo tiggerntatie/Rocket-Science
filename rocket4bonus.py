@@ -35,5 +35,5 @@ def GetMass():
 start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
 
 #Create and "run" the rocket
-lander = Rocket(moon, thrust=GetThrust, mass=GetMass)
+lander = Rocket(moon, thrust=GetThrust, mass=GetMass, altitude=alt, velocity=vel)
 moon.run(lander)
