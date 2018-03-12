@@ -10,7 +10,7 @@ moonradius = 1738000
 alt = 15000     # approximately 15 km orbital altitude
 vel = sqrt(G*moonmass/(moonradius + alt))
 
-moon = Planet(planetmass=moonmass, radius=moonradius, color=Color(0x202020)) 
+moon = Planet(planetmass=moonmass, radius=moonradius, color=Color(0x202020,1)) 
 
 # Create a function for determining the rocket thrust
 def GetThrust():
