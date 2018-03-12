@@ -1,7 +1,7 @@
 # Lundar Lander Simulation
 from ggrocket import Rocket, Planet
 from math import radians, sqrt, log
-from ggmath import Label
+from ggmath import Label, Slider
 from ggame import Color
 
 G = 6.673E-11   # universal gravitation constant
