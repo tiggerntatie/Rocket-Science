@@ -31,18 +31,18 @@ FuelLeft = mdescfuel
 # Clue for the thrust slider
 Label((10,345), "Thrust: up/down key", positioning="physical", size=15)
 # Define a thrust slider
-ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, steps=20, leftkey="down arrow", rightkey="up arrow")
+ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
 
 
 # Create a function for determining the rocket thrust
 def GetThrust():
+    return 0
     global FuelLeft
     global lander
     global ThrustSlider
     elapsedtime = lander.shiptime - LastTime
     LastTime = lander.shiptime
-    #thrustpct = ThrustSlider()
-    thrustpct = 0
+    thrustpct = ThrustSlider()
     if thrustpct < 0.1:
         return 0
     elif FuelLeft > 0:
