@@ -30,9 +30,11 @@ class Lem(Rocket):
         self.LastTime = 0
         self.FuelLeft = mdescfuel
         # Clue for the thrust slider
-        self.lab1 = Label((10,345), "Thrust: up/down key", positioning="physical", size=15)
+        self.lab1 = Label((10,340), "Thrust: up/down key", positioning="physical", size=15)
         # Define a thrust slider
         self.ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
+        # Fuel Gauge
+        self.FuelGage = Label((10,390), self.FuelPct, size=15)
         super().__init__(planet, **kwargs)
         self.LastTime = self.shiptime
         
@@ -55,7 +57,8 @@ class Lem(Rocket):
         return self.FuelLeft + mdescent - mdescfuel + mascent
     
     # Function for calculating the percent of fuel remaining, as text
-
+    def FuelPct(self):
+        return "Fuel Supply: {0:.1f}%".format(100*self.FuelLeft/mdescfuel)
 
 moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=Color(0x202020,1)) 
 
