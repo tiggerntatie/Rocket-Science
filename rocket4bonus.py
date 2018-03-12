@@ -27,6 +27,7 @@ moon = Planet(planetmass=moonmass, radius=moonradius, color=Color(0x202020,1))
 
 FuelLeft = mdescfuel
 
+LastTime = 0
 
 # Clue for the thrust slider
 Label((10,345), "Thrust: up/down key", positioning="physical", size=15)
@@ -38,12 +39,11 @@ ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps
 def GetThrust():
     global FuelLeft
     global LastTime
-    global lander
     global ThrustSlider
     global Fdmax
-    print(lander.shiptime)
-    print(LastTime)
-    elapsedtime = lander.shiptime - LastTime
+    global lander
+
+    elapsedtime = lander.shiptime - StartTime
     LastTime = lander.shiptime
     thrustpct = ThrustSlider()
     if thrustpct < 0.1:
