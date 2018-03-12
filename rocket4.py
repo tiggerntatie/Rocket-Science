@@ -19,8 +19,8 @@ tburn1 = 180         # Burn time (seconds)
 # SECOND STAGE
 me2 = 3900           # Empty mass (kg)
 mp2 =  92670         # Propellent mass (kg)
-Ftotal1 = 8.01E5     # Total thrust (Newtons)
-tburn1 = 372         # Burn time (seconds)
+Ftotal2 = 8.01E5     # Total thrust (Newtons)
+tburn2 = 372         # Burn time (seconds)
 # PAYLOAD
 mep = 13150          # Payload mass (kg)
 
