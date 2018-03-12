@@ -28,27 +28,38 @@ class Lem(Rocket):
         kwargs['thrust'] = self.GetThrust
         kwargs['mass'] = self.GetMass
         self.LastTime = 0
+        self.ElapsedTime = 0
         self.FuelLeft = mdescfuel
+        self.ThrustPct = 0
+        self.LastAltitude = 0
         # Clue for the thrust slider
         self.lab1 = Label((10,340), "Thrust: up/down key", positioning="physical", size=15)
         # Define a thrust slider
         self.ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
         # Fuel Gauge
         self.FuelGage = Label((10,390), self.FuelPct, positioning="physical", size=15)
+        # Vertical Speedometer
+        self.VSpeed = Label((10,420), self.VertVel, positioning="physical", size=15)
         super().__init__(planet, **kwargs)
         self.LastTime = self.shiptime
         
-        
+    def step(self):
+        self.ElapsedTime = self.shiptime - self.LastTime
+        self.LastTime = self.shiptime
+        self.DeltaAltitude = self.altitude - self.LastAltitude
+        self.LastAltitude = self.altitude
+        self.ThrustPct = self.ThrustSlider()
+        if self.ThrustPct >= 0.1 and self.FuelLeft > 0:
+            self.FuelLeft = self.FuelLeft - mdotmax*self.ThrustPct*self.ElapsedTime
+        super().step()
+
     # Create a function for determining the rocket thrust
     def GetThrust(self):
-        elapsedtime = self.shiptime - self.LastTime
-        self.LastTime = self.shiptime
         thrustpct = self.ThrustSlider()
         if thrustpct < 0.1:
             return 0
         elif self.FuelLeft > 0:
-            self.FuelLeft = self.FuelLeft - mdotmax*thrustpct*elapsedtime
-            return Fdmax*thrustpct
+            return Fdmax*self.ThrustPct
         return 0
     
     # Function for calculating the total rocket mass, based on burn time and total
@@ -59,6 +70,10 @@ class Lem(Rocket):
     # Function for calculating the percent of fuel remaining, as text
     def FuelPct(self):
         return "Fuel Supply: {0:.1f}%".format(100*self.FuelLeft/mdescfuel)
+
+    # Function for showing the vertical velocity
+    def VertVel(self):
+        return "Vertical Velocity: {0:.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
 
 moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=Color(0x202020,1)) 
 
