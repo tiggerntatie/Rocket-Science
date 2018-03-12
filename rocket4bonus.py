@@ -28,10 +28,11 @@ class Lem(Rocket):
         kwargs['thrust'] = self.GetThrust
         kwargs['mass'] = self.GetMass
         self.LastTime = 0
-        self.ElapsedTime = 0
+        self.ElapsedTime = 1
         self.FuelLeft = mdescfuel
         self.ThrustPct = 0
         self.LastAltitude = 0
+        self.DeltaAltitude = 0
         # Clue for the thrust slider
         self.lab1 = Label((10,340), "Thrust: up/down key", positioning="physical", size=15)
         # Define a thrust slider
