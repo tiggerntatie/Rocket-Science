@@ -34,6 +34,7 @@ print("Predicted final staged rocket velocity (Rocket Equation), vmax: ", vmax1+
 
 # Create a function for determining the rocket thrust
 def GetThrust():
+    global StartTime
     global BurnTime
     global Stage1Started
     global Stage2Started
