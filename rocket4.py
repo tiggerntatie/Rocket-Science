@@ -116,6 +116,9 @@ start = InputButton((10,400), "START", StartRocket, positioning="physical", size
 # Create a label for showing the current rocket status
 status = Label((10,420), GetStatus, positioning="physical", size=15)
 
+# Add a slider for conrolling the timezoom
+tz = Slider((10,380), 0, 5, 0, positioning="physical")
+
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, timezoom=tz)
 earth.run(rocket)
