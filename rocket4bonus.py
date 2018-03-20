@@ -42,6 +42,8 @@ class Lem(Rocket):
         # Vertical Speedometer
         self.VSpeed = Label((10,420), self.VertVel, positioning="physical", size=15)
         super().__init__(planet, **kwargs)
+        statusfuncs = [self.FuelPct, self.VertVel]
+        statuslist = ["fuelpct", "vertvelocity"]
         self.LastTime = self.shiptime
         
     def dynamics(self, timer):
@@ -79,7 +81,7 @@ class Lem(Rocket):
         else:
             return "Vertical Velocity: {0:.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
 
-moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=Color(0x202020,1)) 
+moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=0x202020) 
 
 
 
