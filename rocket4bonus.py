@@ -37,13 +37,10 @@ class Lem(Rocket):
         self.lab1 = Label((10,340), "Thrust: up/down key", positioning="physical", size=15)
         # Define a thrust slider
         self.ThrustSlider = Slider((10,360), 0, MaxThrottle, 0, positioning="physical", steps=20, leftkey="down arrow", rightkey="up arrow")
-        # Fuel Gauge
-        self.FuelGage = Label((10,390), self.FuelPct, positioning="physical", size=15)
-        # Vertical Speedometer
-        self.VSpeed = Label((10,420), self.VertVel, positioning="physical", size=15)
         super().__init__(planet, **kwargs)
         statusfuncs = [self.FuelPct, self.VertVel]
         statuslist = ["fuelpct", "vertvelocity"]
+        self.addStatusReport(statuslist, statusfuncs, statuslist)
         self.LastTime = self.shiptime
         
     def dynamics(self, timer):
@@ -72,14 +69,14 @@ class Lem(Rocket):
     
     # Function for calculating the percent of fuel remaining, as text
     def FuelPct(self):
-        return "Fuel Supply: {0:.1f}%".format(100*self.FuelLeft/mdescfuel)
+        return "Fuel Supply   {0:8.1f}%".format(100*self.FuelLeft/mdescfuel)
 
     # Function for showing the vertical velocity
     def VertVel(self):
         if not self.ElapsedTime:
-            return "Vertical Velocity N/A"
+            return "Vert. Velocity N/A"
         else:
-            return "Vertical Velocity: {0:.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
+            return "Vert. Velocity: {0:6.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
 
 moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=0x202020) 
 
