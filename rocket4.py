@@ -121,5 +121,5 @@ status = Label((10,420), GetStatus, positioning="physical", size=15)
 tz = Slider((10,360), 0, 5, 0, positioning="physical")
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, timezoom=tz)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, timezoom=tz, directiond=90)
 earth.run(rocket)
