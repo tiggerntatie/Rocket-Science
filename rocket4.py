@@ -70,7 +70,7 @@ def GetThrust():
         return 0
 
 # Function for starting the rocket thrust (called by the START "button")
-def StartRocket():
+def StartRocket(calledfrom):
     global Stage1Started
     global StartTime
     if not (Stage1Started or Stage2Started):
