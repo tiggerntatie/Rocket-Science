@@ -40,7 +40,7 @@ def GetThrust():
         return 0
 
 # Function for starting the rocket thrust (called by the START "button")
-def StartRocket():
+def StartRocket(caller):
     global RocketStarted
     global StartTime
     if not RocketStarted:
@@ -61,7 +61,7 @@ def GetMass():
 
 # Create a button for starting the simulation
 # Physical positioning at 10,400 pixels, calls the StartRocket function
-start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
+start = InputButton( StartRocket, (10,400), "START", positioning="physical", size=15)
 
 #Create and "run" the rocket
 rocket = Rocket(earth, thrust=GetThrust, mass=GetMass)
