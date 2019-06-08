@@ -1,8 +1,9 @@
 # Lundar Lander Simulation
 from math import radians, sqrt, log
-from ggmath import Label, Slider
+from ggame.label import Label
+from ggame.slider import Slider
 from ggame import Color
-from ggrocket import Rocket, Planet
+from ggame.astro import Rocket, Planet
 
 G = 6.673E-11   # universal gravitation constant
 moonmass = 7.3477E22
