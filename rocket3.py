@@ -1,6 +1,7 @@
-from ggrocket import Rocket, Planet
+from ggame.astro import Rocket, Planet
 from math import radians, sqrt, log
-from ggmath import InputButton, Timer
+from ggame.input import InputButton
+from ggame.timer import Timer
 
 earth = Planet(planetmass=0)  # no gravity to simplify things
 
