@@ -44,8 +44,8 @@ class Lem(Rocket):
         self.addStatusReport(statuslist, statusfuncs, statuslist)
         self.LastTime = self.shiptime
         
-    def dynamics(self, timer):
-        super().dynamics(timer)
+    def _dynamics(self, timer):
+        super()._dynamics(timer)
         self.ElapsedTime = self.shiptime - self.LastTime
         self.LastTime = self.shiptime
         self.DeltaAltitude = self.altitude - self.LastAltitude
