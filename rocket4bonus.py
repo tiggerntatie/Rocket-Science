@@ -79,7 +79,7 @@ class Lem(Rocket):
         else:
             return "Vert. Velocity: {0:6.1f} m/s".format(self.DeltaAltitude/self.ElapsedTime)
 
-moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.02, color=0x202020) 
+moon = Planet(planetmass=moonmass, radius=moonradius, viewscale=0.01, color=0x202020) 
 
 
 
