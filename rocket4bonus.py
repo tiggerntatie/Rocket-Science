@@ -1,4 +1,5 @@
 # Lundar Lander Simulation
+# (c) 2019 by E. Dennison
 from math import radians, sqrt, log
 from ggame.label import Label
 from ggame.slider import Slider
