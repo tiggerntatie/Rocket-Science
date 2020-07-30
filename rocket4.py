@@ -1,12 +1,11 @@
 from ggame.astro import Rocket, Planet
-from math import radians, sqrt, log, pi
+from math import radians, sqrt, log
 from ggame.input import InputButton
 from ggame.timer import Timer
 from ggame.label import Label
 from ggame.slider import Slider
 
-#earth = Planet(planetmass=0)  # no gravity to simplify things
-earth = Planet()
+earth = Planet(planetmass=0)  # no gravity to simplify things
 
 Stage1Started = False
 Stage2Started = False
@@ -73,7 +72,7 @@ def GetThrust():
         return 0
 
 # Function for starting the rocket thrust (called by the START "button")
-def StartRocket(calledfrom):
+def StartRocket(caller):
     global Stage1Started
     global StartTime
     if not (Stage1Started or Stage2Started):
@@ -115,7 +114,7 @@ def GetStatus():
 
 # Create a button for starting the simulation
 # Physical positioning at 10,400 pixels, calls the StartRocket function
-start = InputButton((10,400), "START", StartRocket, positioning="physical", size=15)
+start = InputButton(StartRocket, (10,400), "START", positioning="physical", size=15)
 
 # Create a label for showing the current rocket status
 status = Label((10,420), GetStatus, positioning="physical", size=15)
@@ -124,5 +123,5 @@ status = Label((10,420), GetStatus, positioning="physical", size=15)
 tz = Slider((10,360), 0, 5, 0, positioning="physical")
 
 #Create and "run" the rocket
-rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, timezoom=tz, heading=pi/2)
+rocket = Rocket(earth, thrust=GetThrust, mass=GetMass, timezoom=tz)
 earth.run(rocket)
